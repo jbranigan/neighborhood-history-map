@@ -1,0 +1,20 @@
+/* TODO: include a reset */
+
+html, body { 
+    height: 100%; 
+    margin: 0; 
+    padding: 0; 
+}
+
+main {
+    height: 100%;
+}
+
+#map { 
+    height: 100%; 
+}
+
+      #pano {
+        width: 300px;
+        height: 300px;
+      }
