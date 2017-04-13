@@ -9,7 +9,9 @@
 </head>
 <body>
     <header>
-        <h1>History Around Us</h1>
+        <div id="title">
+            <h1>History Around Us</h1>
+        </div>
         <div id="search-form">
             <input id="search-text" type="text" placeholder="Find your neighborhood">
             <input id="search-button" type="button" value="Go!">
@@ -20,9 +22,17 @@
         <div id="map"></div>
     </main>
     <div id="lightbox" class="hidden"></div>
+    <div id="intro" class="hidden">
+        <h1>History Around Us</h1>
+        <p>
+            There are more than 66,000 entries in the National Register of Historic Places! 
+            Explore the sites in your neighborhood.
+        </p>
+
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbKzsLgpB2VvfTDX0XIEn6lVsd8QaBmQI&v=3">
+        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBbKzsLgpB2VvfTDX0XIEn6lVsd8QaBmQI&v=3">
     </script>
     <script src="js/app.js"></script>
     <script src="js/map.js"></script>

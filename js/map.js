@@ -2,9 +2,9 @@ var map;
 
 var markers = [];
 
-// var markerInfo = new google.maps.InfoWindow();
-
 var markerInfo = document.getElementById('lightbox');
+
+var streetViewService = new google.maps.StreetViewService();
 
 function initMap() {
     var styles = [
@@ -182,12 +182,21 @@ function initMap() {
         zoom: 14,
         styles: styles,
         fullscreenControl: false,
-        gestureHandling: 'greedy'
+        gestureHandling: 'greedy',
+        mapTypeControl: false,
+        minZoom: 13
     });
 
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(){ 
         loadData();
     });
+
+    document.getElementById('search-button').addEventListener('click', function() {
+        zoomToArea();
+    });
+
+    var searchAutocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('search-text'));
 
 }
 
@@ -241,7 +250,6 @@ function populateInfoWindow(marker, infowindow) {
             google.maps.event.removeListener(closeInfo);
         });
 
-        var streetViewService = new google.maps.StreetViewService();
         var radius = 50;
 
         infowindow.innerHTML = '<h3>' + marker.title + '</h3><div id="pano"></div><div id="wiki"></div>';
@@ -295,7 +303,7 @@ function makeIcon(name) {
         color = '#527379';
     } else if (name.includes('Church') || name.includes('Temple')) {
         color = '#4c6b54';
-    } else if (name.includes('Hotel')) {
+    } else if (name.includes('School')) {
         color = '#d3aa50';
     }
     return {

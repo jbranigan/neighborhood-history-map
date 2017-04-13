@@ -15,7 +15,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: Copperplate, "Copperplate Gothic Light", serif;
+    font-family: 'Times New Roman', Times, serif;
     font-weight: normal;
 }
 
@@ -34,6 +34,10 @@ main {
     height: 85vh;
 }
 
+#search-text {
+    width: 200px;
+    padding: 3px;
+}
 #map { 
     height: 100%; 
 }
