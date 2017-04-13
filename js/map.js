@@ -2,108 +2,187 @@ var map;
 
 var markers = [];
 
-var markerInfo = new google.maps.InfoWindow();
+// var markerInfo = new google.maps.InfoWindow();
+
+var markerInfo = document.getElementById('lightbox');
 
 function initMap() {
     var styles = [
-        {
-            "featureType": "administrative",
-            "stylers": [{
-                    "visibility": "off"
-                }]
-        },
-        {
-            "featureType": "poi",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "stylers": [
-                {
-                    "visibility": "simplified"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "stylers": [
-                {
-                    "visibility": "simplified"
-                }
-            ]
-        },
-        {
-            "featureType": "transit",
-            "stylers": [
-                {
-                    "visibility": "simplified"
-                }
-            ]
-        },
-        {
-            "featureType": "landscape",
-            "stylers": [
-                {
-                    "visibility": "simplified"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road.local",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "stylers": [
-                {
-                    "color": "#84afa3"
-                },
-                {
-                    "lightness": 52
-                }
-            ]
-        },
-        {
-            "stylers": [
-                {
-                    "saturation": -77
-                }
-            ]
-        },
-        {
-            "featureType": "road"
-        }
-    ];
-    
+    {
+        "featureType": "all",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "weight": "2.00"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#9c9c9c"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#fcf8f1"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#fcf8f1"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#fcf8f1"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 45
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#b8b19f"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#575041"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#fcf8f1"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#46bcec"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#c8d7d4"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#070707"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    }
+];
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 39.95, lng: -75.166667}, // philly {lat: 39.95, lng: -75.166667} ****** st louis {lat: 38.637791, lng: -90.278778}
         zoom: 14,
-        styles: styles
+        styles: styles,
+        fullscreenControl: false,
+        gestureHandling: 'greedy'
     });
 
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(){ 
@@ -153,16 +232,19 @@ function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         // Clear the infowindow content to give the streetview time to load.
-        infowindow.setContent('');
+        infowindow.innerHTML = '';
         infowindow.marker = marker;
         // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener('closeclick', function() {
+        var closeInfo = map.addListener('click', function() {
             infowindow.marker = null;
+            infowindow.classList.toggle('hidden');
+            google.maps.event.removeListener(closeInfo);
         });
+
         var streetViewService = new google.maps.StreetViewService();
         var radius = 50;
 
-        infowindow.setContent('<h3>' + marker.title + '</h3><div id="pano"></div><div id="wiki"></div>');
+        infowindow.innerHTML = '<h3>' + marker.title + '</h3><div id="pano"></div><div id="wiki"></div>';
         // In case the status is OK, which means the pano was found, compute the
         // position of the streetview image, then calculate the heading, then get a
         // panorama from that and set the options
@@ -193,7 +275,7 @@ function populateInfoWindow(marker, infowindow) {
         }).done(function (data) {
             if (data[1].length > 0) {
                 var link = '<h4>Info from Wikipedia (ymmv)</h4>';
-                link += '<a href="' + data[3][0] + '" target="_blank">' + data[1][0] + '</a>';
+                link += '<p><a href="' + data[3][0] + '" target="_blank">' + data[1][0] + '</a></p>';
                 document.getElementById('wiki').innerHTML = link;
             }
 
@@ -202,23 +284,24 @@ function populateInfoWindow(marker, infowindow) {
         // 50 meters of the markers position
         streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
         // Open the infowindow on the correct marker.
-        infowindow.open(map, marker);
+        // infowindow.open(map, marker);
+        infowindow.classList.toggle('hidden');
     }
 }
 
 function makeIcon(name) {
-    var color = 'red';
+    var color = '#d18779';
     if (name.includes('House')) {
-        color = 'blue';
+        color = '#527379';
     } else if (name.includes('Church') || name.includes('Temple')) {
-        color = 'purple';
+        color = '#4c6b54';
     } else if (name.includes('Hotel')) {
-        color = 'yellow';
+        color = '#d3aa50';
     }
     return {
             path: google.maps.SymbolPath.CIRCLE,
-            scale: 4,
-            fillOpacity: 0.5,
+            scale: 7,
+            fillOpacity: 0.7,
             fillColor: color,
             strokeWeight: 0
     };

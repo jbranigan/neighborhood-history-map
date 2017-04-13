@@ -1,20 +1,63 @@
 /* TODO: include a reset */
 
 html, body { 
-    height: 100%; 
+    height: 100vh; 
     margin: 0; 
     padding: 0; 
+    color: #514a3b;
+    background-color: #e1d4b8;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Copperplate, "Copperplate Gothic Light", serif;
+    font-weight: normal;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+    color: #265e98;
+}
+
+header {
+    height: 12vh;
+    text-align: center;
 }
 
 main {
-    height: 100%;
+    height: 85vh;
 }
 
 #map { 
     height: 100%; 
 }
 
-      #pano {
-        width: 300px;
-        height: 300px;
-      }
+#pano {
+    width: 100%;
+    height: 300px;
+}
+
+#lightbox {
+    position: absolute;
+    top: 20vh;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: auto;
+    max-width: 400px;
+    min-height: 300px;
+    z-index: 100;
+    background-color: #f9f2e3;
+    box-shadow: 5px 5px 10px #514a3b;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
