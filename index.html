@@ -11,7 +11,7 @@
 <body>
     <header>
         <div id="title">
-            <h1>History Around Us</h1>
+            <h1>History Around Us!</h1>
         </div>
         <div id="search-form">
             <input id="search-text" type="text" placeholder="Find your neighborhood">
@@ -20,7 +20,9 @@
     </header>
     <aside>
         <div id="filters">
-            <ul id="categories"></ul>
+            <ul id="categories" data-bind="foreach: viewModel.list.placeList">
+                <li data-bind="text: title"></li>
+            </ul>
             <input type="text" id="text-filter">
         </div>
         <div id="list-view">
@@ -39,11 +41,12 @@
         </p>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/knockout-3.4.2.js"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBbKzsLgpB2VvfTDX0XIEn6lVsd8QaBmQI&v=3">
     </script>
-    <script src="js/knockout-3.4.2.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/data.js"></script>
     <script src="js/map.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
