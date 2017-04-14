@@ -1,5 +1,21 @@
-/* TODO: include a reset */
+/* Border box set according to
+ * https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
 
+html {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+    *,
+    *::before,
+    *::after {
+        -webkit-box-sizing: inherit;
+           -moz-box-sizing: inherit;
+                box-sizing: inherit;
+    }
+    
 html, body { 
     height: 100vh; 
     margin: 0; 
