@@ -6,6 +6,13 @@ var markerInfo = document.getElementById('lightbox');
 
 var streetViewService = new google.maps.StreetViewService();
 
+var iconColors = { 
+    default: '#d18779',
+    house: '#527379',
+    church: '#4c6b54',
+    school: '#d3aa50'
+};
+
 function initMap() {
     var styles = [
     {
@@ -297,6 +304,8 @@ function populateInfoWindow(marker, infowindow) {
     }
 }
 
+
+
 function makeIcon(name) {
     var color = '#d18779';
     if (name.includes('House')) {
@@ -306,6 +315,7 @@ function makeIcon(name) {
     } else if (name.includes('School')) {
         color = '#d3aa50';
     }
+    // TODO - DRY out this color stuff
     return {
             path: google.maps.SymbolPath.CIRCLE,
             scale: 7,
