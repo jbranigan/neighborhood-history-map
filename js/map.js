@@ -30,5 +30,32 @@ var MapVm = function() {
                 strokeWeight: 0
         };
     };
+    
+    this.addMarker = function(place) {
+
+        var title = place.attributes.RESNAME;
+        var id = place.attributes.NRIS_Refnum;
+        var position = {};
+        position.lat = place.geometry.y;
+        position.lng = place.geometry.x;
+        
+        var marker = new google.maps.Marker({
+            position: position,
+            title: title,
+            id: id,
+            icon: this.makeIcon('blue')
+        });
+
+        // When the user clicks, open an infowindow TODO
+        marker.addListener('click', function() {
+            // TODO: add this function
+            //populateInfoWindow(this, markerInfo);
+            console.log(this);
+        });
+
+        this.markers.push(marker);
+        marker.setMap(this.map);
+    };
+
 
 };

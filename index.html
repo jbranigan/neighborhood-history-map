@@ -5,31 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Neighborhood History</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <div id="title">
             <h1>History Around Us!</h1>
+            <p>National Register of Historic Places
         </div>
-        <div id="search-form">
+        <div id="search-form" class="pure-form">
             <input id="search-text" type="text" placeholder="Find your neighborhood">
-            <input id="search-button" type="button" value="Go!">
+            <input id="search-button" class="pure-button" type="button" value="Go!">
         </div>
     </header>
-    <aside>
-        <div id="filters">
-            <ul id="categories" data-bind="foreach: viewModel.list.placeList">
-                <li data-bind="text: title"></li>
-            </ul>
-            <input type="text" id="text-filter">
-        </div>
-        <div id="list-view">
-            <ul id="properties"></ul>
-        </div>
-    </aside>
     <main>
+        <div id="sidebar">
+            <div id="filters">
+                <ul id="categories"></ul>
+                <input type="text" id="text-filter">
+            </div>
+            <div id="list-view">
+                <ul id="properties" data-bind="foreach: viewModel.list.placeList">
+                    <li class="property" data-bind="text: title"></li>
+                </ul>
+            </div>
+        </div>
         <div id="map"></div>
     </main>
     <div id="lightbox" class="hidden"></div>
