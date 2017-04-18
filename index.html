@@ -27,7 +27,7 @@
             </div>
             <div id="list-view">
                 <ul id="properties" data-bind="foreach: viewModel.list.placeList">
-                    <li class="property" data-bind="text: title"></li>
+                    <li class="property" data-bind="text: title, click: $parents[0].list.highlightPlace"></li>
                 </ul>
             </div>
         </div>

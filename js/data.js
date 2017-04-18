@@ -176,22 +176,3 @@ var mapData = {
         }
     ]
 };
-
-function loadData(map) {
-    var baseUrl = 'https://mapservices.nps.gov/arcgis/rest/services/cultural_resources/nrhp_locations/MapServer/0/';
-    var queryStr = 'query?outFields=RESNAME%2C+NRIS_Refnum&returnGeometry=true&f=json&geometry=';
-    var bounds = map.getBounds();
-    var extent = bounds.getSouthWest().lng() + ',' + bounds.getSouthWest().lat() + ',' +
-        bounds.getNorthEast().lng() + ',' + bounds.getNorthEast().lat();
-    var request = baseUrl + queryStr + extent;
-
-    $.getJSON(request, function(data) {
-        // TODO: handle errors
-        mapData.data = data.features;
-        console.log(mapData.length + ' features loaded');
-        mapData.data.forEach(function(place) {
-            viewModel.list.placeList.push( new Place(place) );
-            viewModel.map.addMarker(place);
-        });
-    });
-}
