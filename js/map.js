@@ -28,7 +28,7 @@ var MapVm = function() {
             
             if (infowindow.marker) {
                 infowindow.marker = null;
-                viewModel.info.hide();
+                viewModel.info.show(false);
             }
         });
     };
@@ -44,10 +44,8 @@ var MapVm = function() {
         var request = baseUrl + queryStr + extent;
 
         $.getJSON(request, function(data) {
-            // TODO: handle errors
-            mapData.data = data.features;
-            console.log(mapData.data.length + ' features loaded');
-            mapData.data.forEach(function(place) {
+            console.log(data.features.length + ' features loaded');
+            data.features.forEach(function(place) {
                 var i = viewModel.list.placeList.push( new Place(place) ) - 1;
                 self.addMarker(viewModel.list.placeList()[i]);
             });
@@ -66,8 +64,8 @@ var MapVm = function() {
     
     this.addMarker = function(place) {
 
-        var title = place.title();
-        var id = place.id();
+        var title = place.title;
+        var id = place.id;
         var position = {};
         position.lat = place.location.lat;
         position.lng = place.location.lng;
@@ -84,9 +82,30 @@ var MapVm = function() {
             viewModel.info.populate(this);
         });
 
+        marker.addListener('mouseover', function() {
+            self.highlightMarker(this);
+        });
+
+        marker.addListener('mouseout', function() {
+            self.clearHighlight(this);
+        });
+
         this.markers.push(marker);
         marker.setMap(this.map);
     };
 
+    this.highlightMarker = function(marker) {
+        marker.setIcon( {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 10,
+                fillOpacity: 0.7,
+                fillColor: 'yellow',
+                strokeWeight: 0.5
+        } );
+    };
+
+    this.clearHighlight = function(marker) {
+        marker.setIcon( this.makeIcon(marker.color) );
+    };
 
 };

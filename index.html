@@ -27,13 +27,14 @@
             </div>
             <div id="list-view">
                 <ul id="properties" data-bind="foreach: viewModel.list.placeList">
-                    <li class="property" data-bind="text: title, click: $parents[0].list.highlightPlace"></li>
+                    <li class="property" data-bind="text: title, click: $root.list.placeInfo, 
+                    event: { mouseover: $root.list.highlightMarker, mouseout: $root.list.clearHighlight }"></li>
                 </ul>
             </div>
         </div>
         <div id="map"></div>
     </main>
-    <div id="lightbox" class="hidden"></div>
+    <div id="lightbox" data-bind="visible: $root.info.show"></div>
     <div id="intro" class="hidden">
         <h1>History Around Us</h1>
         <p>
@@ -43,11 +44,12 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/knockout-3.4.2.js"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBbKzsLgpB2VvfTDX0XIEn6lVsd8QaBmQI&v=3">
-    </script>
+
     <script src="js/data.js"></script>
     <script src="js/map.js"></script>
     <script src="js/app.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBbKzsLgpB2VvfTDX0XIEn6lVsd8QaBmQI&v=3&callback=init">
+    </script>
 </body>
 </html>

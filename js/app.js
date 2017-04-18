@@ -1,15 +1,12 @@
-$(function() {
-    init();
-});
 
 var Place = function(data) {
-    this.title = ko.observable(data.attributes.RESNAME);
-    this.id = ko.observable(data.attributes.NRIS_Refnum);
+    this.title = data.attributes.RESNAME;
+    this.id = data.attributes.NRIS_Refnum;
     this.location = {};
     this.location.lat = data.geometry.y;
     this.location.lng = data.geometry.x;
     this.color = function() {
-        var name = this.title();
+        var name = this.title;
         if (name.includes("House")) {
             return mapData.colors.house;
         } else if (name.includes('Church') || name.includes('Temple')) {
@@ -29,10 +26,21 @@ var ListVm = function() {
 
     this.currentPlace = ko.observable();
 
-    self.highlightPlace = function(place) {
+    self.placeInfo = function(place) {
         var i = self.placeList.indexOf(place);
         viewModel.info.populate(viewModel.map.markers[i]);
     };
+
+    self.highlightMarker = function(place) {
+        var i = self.placeList.indexOf(place);
+        viewModel.map.highlightMarker(viewModel.map.markers[i]);
+    };
+
+    self.clearHighlight = function(place) {
+        var i = self.placeList.indexOf(place);
+        viewModel.map.clearHighlight(viewModel.map.markers[i]);
+    };
+
 };
 
 var InfoVm = function() {
@@ -42,17 +50,7 @@ var InfoVm = function() {
 
     this.streetViewService = new google.maps.StreetViewService();
 
-    this.show = function() {
-        if (self.div.classList.contains('hidden')) {
-            self.div.classList.remove('hidden');
-        }
-    };
-
-    this.hide = function() {
-        if (!self.div.classList.contains('hidden')) {
-            self.div.classList.add('hidden');
-        }
-    };
+    this.show = ko.observable(false);
 
     this.populate = function(marker) {
         var infowindow = this.div;
@@ -105,7 +103,7 @@ var InfoVm = function() {
             // 50 meters of the markers position
             this.streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
             // Open the infowindow on the correct marker.
-            this.show();
+            this.show(true);
         }
     };
 };
