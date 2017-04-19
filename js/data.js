@@ -1,9 +1,9 @@
 var mapData = {
     types: { 
         default: { color: '#d18779', label: 'Commercial / Other' }, // rose
-        house: { color: '#527379', label: 'Commercial / Other' }, // blue
-        religious: { color: '#428a54', label: 'Commercial / Other' }, // green
-        school: { color: '#d3aa50', label: 'Commercial / Other' } // mustard
+        house: { color: '#527379', label: 'House' }, // blue
+        religious: { color: '#428a54', label: 'Religious' }, // green
+        school: { color: '#d3aa50', label: 'School' } // mustard
     },
     mapStyles: [
         {

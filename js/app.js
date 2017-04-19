@@ -33,6 +33,22 @@ var ListVm = function() {
 
     this.placeList = ko.observableArray([]);
 
+    this.filters = ko.computed(function() {
+        var arr = [];
+        Object.keys(mapData.types).forEach(function(key) {
+            arr.push(mapData.types[key]);
+        });
+        return arr;
+    });
+
+    this.visibleTypes = ko.computed(function() {
+        var arr = [];
+        Object.keys(mapData.types).forEach(function(key) {
+            arr.push(mapData.types[key].label);
+        });
+        return arr;
+    });
+
     self.placeInfo = function(place) {
         viewModel.info.populate(place.marker);
     };

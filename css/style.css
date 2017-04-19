@@ -65,12 +65,12 @@ main {
     display: flex;
 }
 
-#sidebar {
+.list-view {
     flex: 0 0 230px;
     overflow: auto;
 }
 
-#search-text {
+.search-text {
     width: 200px;
 }
 
