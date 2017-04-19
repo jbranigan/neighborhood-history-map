@@ -1,9 +1,9 @@
 var mapData = {
     colors: { 
-        default: '#d18779',
-        house: '#527379',
-        church: '#4c6b54',
-        school: '#d3aa50'
+        default: '#d18779', // rose
+        house: '#527379', // blue
+        church: '#428a54', // green
+        school: '#d3aa50' // mustard
     },
     mapStyles: [
         {

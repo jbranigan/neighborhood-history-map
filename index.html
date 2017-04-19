@@ -34,7 +34,11 @@
         </div>
         <div id="map"></div>
     </main>
-    <div id="lightbox" data-bind="visible: $root.info.show"></div>
+    <div id="lightbox" data-bind="visible: $root.info.show">
+        <h3 data-bind="text: $root.info.placeName"></h3>
+        <div id="pano" data-bind="html: $root.info.pano"></div>
+        <div id="wiki" data-bind="html: $root.info.wiki"></div>
+    </div>
     <div id="intro" class="hidden">
         <h1>History Around Us</h1>
         <p>
