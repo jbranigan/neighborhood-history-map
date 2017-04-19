@@ -3,8 +3,6 @@ var MapVm = function() {
 
     this.map = new google.maps.Map(document.getElementById('map'));
 
-    this.markers = [];
-
     this.infowindow = new google.maps.InfoWindow();
 
     this.streetViewService = new google.maps.StreetViewService();
@@ -46,8 +44,10 @@ var MapVm = function() {
         $.getJSON(request, function(data) {
             console.log(data.features.length + ' features loaded');
             data.features.forEach(function(place) {
-                var i = viewModel.list.placeList.push( new Place(place) ) - 1;
-                self.addMarker(viewModel.list.placeList()[i]);
+                viewModel.list.placeList.push( new Place(place) );
+            });
+            viewModel.list.placeList().forEach(function(place) {
+                self.setUpMarker(place.marker);
             });
         });
     };
@@ -62,21 +62,8 @@ var MapVm = function() {
         };
     };
     
-    this.addMarker = function(place) {
-
-        var title = place.title;
-        var id = place.id;
-        var position = {};
-        position.lat = place.location.lat;
-        position.lng = place.location.lng;
+    this.setUpMarker = function(marker) {
         
-        var marker = new google.maps.Marker({
-            position: position,
-            title: title,
-            id: id,
-            icon: this.makeIcon(place.color())
-        });
-
         marker.addListener('click', function() {
             viewModel.info.populate(this);
         });
@@ -89,7 +76,7 @@ var MapVm = function() {
             self.clearHighlight(this);
         });
 
-        this.markers.push(marker);
+        //this.markers.push(marker);
         marker.setMap(this.map);
     };
 

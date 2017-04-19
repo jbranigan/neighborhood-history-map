@@ -2,9 +2,9 @@
 var Place = function(data) {
     this.title = data.attributes.RESNAME;
     this.id = data.attributes.NRIS_Refnum;
-    this.location = {};
-    this.location.lat = data.geometry.y;
-    this.location.lng = data.geometry.x;
+    this.position = {};
+    this.position.lat = data.geometry.y;
+    this.position.lng = data.geometry.x;
     this.color = function() {
         var name = this.title;
         if (name.includes("House")) {
@@ -17,6 +17,14 @@ var Place = function(data) {
             return mapData.colors.default;
         }
     };
+    
+    this.marker = new google.maps.Marker({
+        //map: viewModel.map.map,
+        position: this.position,
+        title: this.title,
+        id: this.id,
+        icon: viewModel.map.makeIcon(this.color())
+    });
 };
 
 var ListVm = function() {
@@ -25,18 +33,15 @@ var ListVm = function() {
     this.placeList = ko.observableArray([]);
 
     self.placeInfo = function(place) {
-        var i = self.placeList.indexOf(place);
-        viewModel.info.populate(viewModel.map.markers[i]);
+        viewModel.info.populate(place.marker);
     };
 
     self.highlightMarker = function(place) {
-        var i = self.placeList.indexOf(place);
-        viewModel.map.highlightMarker(viewModel.map.markers[i]);
+        viewModel.map.highlightMarker(place.marker);
     };
 
     self.clearHighlight = function(place) {
-        var i = self.placeList.indexOf(place);
-        viewModel.map.clearHighlight(viewModel.map.markers[i]);
+        viewModel.map.clearHighlight(place.marker);
     };
 
 };
