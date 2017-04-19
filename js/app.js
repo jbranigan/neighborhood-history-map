@@ -5,16 +5,16 @@ var Place = function(data) {
     this.position = {};
     this.position.lat = data.geometry.y;
     this.position.lng = data.geometry.x;
-    this.color = function() {
+    this.type = function() {
         var name = this.title;
         if (name.includes("House")) {
-            return mapData.colors.house;
+            return mapData.types.house;
         } else if (name.includes('Church') || name.includes('Temple')) {
-            return mapData.colors.religious;
+            return mapData.types.religious;
         } else if (name.includes('School')) {
-            return mapData.colors.school;
+            return mapData.types.school;
         } else {
-            return mapData.colors.default;
+            return mapData.types.default;
         }
     };
     
@@ -23,7 +23,8 @@ var Place = function(data) {
         position: this.position,
         title: this.title,
         id: this.id,
-        icon: viewModel.map.makeIcon(this.color())
+        icon: viewModel.map.makeIcon(this.type().color),
+        type: this.type()
     });
 };
 
@@ -129,12 +130,17 @@ var InfoVm = function() {
     };
 };
 
+var SearchVm = function() {
+    this.input = new ko.observable();
+};
+
 var viewModel = {};
 
 var init = function() {
     viewModel.map = new MapVm();
     viewModel.info = new InfoVm();
     viewModel.list = new ListVm();
+    viewModel.search = new SearchVm();
 
     ko.applyBindings(viewModel);
     

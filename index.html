@@ -14,10 +14,10 @@
             <h1>History Around Us!</h1>
             <p>National Register of Historic Places
         </div>
-        <div id="search-form" class="pure-form">
-            <input id="search-text" type="text" placeholder="Find your neighborhood">
-            <input id="search-button" class="pure-button" type="button" value="Go!">
-        </div>
+        <form id="search-form" class="pure-form" data-bind="submit: $root.map.zoomToArea">
+            <input id="search-text" type="text" data-bind="textInput: $root.search.input" placeholder="Find your neighborhood">
+            <button id="search-button" class="pure-button" type="submit">Go!</button>
+        </form>
     </header>
     <main>
         <div id="sidebar">
