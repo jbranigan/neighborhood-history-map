@@ -5,6 +5,8 @@ var MapVm = function() {
 
     this.markers = [];
 
+    this.infowindow = new google.maps.InfoWindow();
+
     this.streetViewService = new google.maps.StreetViewService();
 
     this.initMap = function() {
@@ -75,7 +77,6 @@ var MapVm = function() {
             icon: this.makeIcon(place.color())
         });
 
-        // When the user clicks, open an infowindow TODO
         marker.addListener('click', function() {
             viewModel.info.populate(this);
         });
@@ -98,12 +99,15 @@ var MapVm = function() {
                 scale: 10,
                 fillOpacity: 0.7,
                 fillColor: 'yellow',
-                strokeWeight: 0.5
+                strokeWeight: 1
         } );
+        self.infowindow.setContent(marker.title);
+        self.infowindow.open(map, marker);
     };
 
     this.clearHighlight = function(marker) {
         marker.setIcon( this.makeIcon(marker.color) );
+        self.infowindow.close();
     };
 
 };
