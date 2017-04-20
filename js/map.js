@@ -25,8 +25,7 @@ var MapVm = function() {
         // Make sure the marker property is cleared if the infowindow is closed.
         this.map.addListener('click', function() {            
             if (viewModel.info.placeName()) {
-                viewModel.info.clearInfo();
-                viewModel.info.show(false);
+                viewModel.info.close();
             }
         });
     };

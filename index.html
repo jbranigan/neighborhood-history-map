@@ -11,8 +11,7 @@
 <body>
     <header>
         <div id="title">
-            <h1>History Around Us!</h1>
-            <p>National Register of Historic Places
+            <h1>Historic Architecture in Your Neighborhood</h1>
         </div>
         <form id="search-form" class="pure-form" data-bind="submit: $root.map.zoomToArea">
             <input class="search-text" type="text" data-bind="textInput: $root.search.input" placeholder="Find your neighborhood">
@@ -23,23 +22,28 @@
         <div class="list-view">
             <div class="filters">
                 <ul class="categories" data-bind="foreach: $root.list.filters">
-                    <li>
-                        <input type="checkbox" data-bind="attr: { value: label }, checked: $root.list.visibleTypes" />
+                    <li class="category">
+                        <input type="checkbox" data-bind="attr: { value: label }, checked: $root.list.visibleTypes" class="pure-checkbox"/>
+                        <span data-bind="style: { backgroundColor: color }" class="legend-icon"></span>
                         <span data-bind="text: label"></span>
                     </li>
                 </ul>
-                <input type="text" id="text-filter">
             </div>
             <div class="list">
                 <ul id="properties" data-bind="foreach: $root.list.placeList">
-                    <li class="property" data-bind="text: title, click: $root.list.placeInfo, 
-                    event: { mouseover: $root.list.highlightMarker, mouseout: $root.list.clearHighlight }"></li>
+                    <li class="property" data-bind="click: $root.list.placeInfo, 
+                    event: { mouseover: $root.list.highlightMarker, mouseout: $root.list.clearHighlight }">
+                    <span data-bind="style: { backgroundColor: type().color }" class="legend-icon-small"></span>
+                    <span class="property-label" data-bind="text: title"></span>
+                </li>
                 </ul>
             </div>
         </div>
         <div id="map"></div>
     </main>
     <div id="lightbox" data-bind="visible: $root.info.show">
+        <button class="close-button pure-button" data-bind="click: $root.info.close"
+            aria-label="Close Account Info Modal Box">&times;</button>
         <h3 data-bind="text: $root.info.placeName"></h3>
         <div id="pano" data-bind="html: $root.info.pano"></div>
         <div id="wiki" data-bind="html: $root.info.wiki"></div>

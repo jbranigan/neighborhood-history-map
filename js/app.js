@@ -19,7 +19,6 @@ var Place = function(data) {
     };
     
     this.marker = new google.maps.Marker({
-        //map: viewModel.map.map,
         position: this.position,
         title: this.title,
         id: this.id,
@@ -75,13 +74,17 @@ var InfoVm = function() {
     this.show = ko.observable(false);
     
     this.clearInfo = function() {
-        this.placeName('');
-        this.pano('');
-        this.wiki('');
+        self.placeName('');
+        self.pano('');
+        self.wiki('');
+    };
+
+    this.close = function() {
+        self.clearInfo();
+        self.show(false);
     };
 
     this.populate = function(marker) {
-        console.log(marker.position);
         if (self.placeName() != marker.title) {
             // Clear the infowindow content to give the streetview time to load.
             self.clearInfo();
