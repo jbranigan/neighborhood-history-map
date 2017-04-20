@@ -18,10 +18,6 @@ var MapVm = function() {
             minZoom: 13
         });
 
-        google.maps.event.addListenerOnce(this.map, 'tilesloaded', function(){ 
-            self.loadData();
-        });
-
         // Make sure the marker property is cleared if the infowindow is closed.
         this.map.addListener('click', function() {            
             if (viewModel.info.placeName()) {
@@ -48,6 +44,8 @@ var MapVm = function() {
             viewModel.list.placeList().forEach(function(place) {
                 self.setUpMarker(place.marker);
             });
+            viewModel.showIntro(false);
+
         });
     };
 
@@ -100,7 +98,6 @@ var MapVm = function() {
     // locates it, and then zooms into that area. This is so that the user can
     // show all listings, then decide to focus on one area of the map.
     this.zoomToArea = function() {
-        console.log('hi');
         // Initialize the geocoder.
         var geocoder = new google.maps.Geocoder();
         // Get the address or place that the user entered.

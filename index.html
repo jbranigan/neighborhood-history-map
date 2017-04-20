@@ -48,13 +48,30 @@
         <div id="pano" data-bind="html: $root.info.pano"></div>
         <div id="wiki" data-bind="html: $root.info.wiki"></div>
     </div>
-    <div id="intro" class="hidden">
-        <h1>History Around Us</h1>
+    <div id="intro" data-bind="visible: $root.showIntro">
+        <h1 class="intro-header">Historic Architecture in Your Neighborhood</h1>
         <p>
-            There are more than 66,000 entries in the National Register of Historic Places! 
-            Explore the sites in your neighborhood.
+            There are more than 66,000 properties on the National Register of Historic Places 
         </p>
+        <p>Find out if there are any near you...</p>
+        <form id="landing-search" class="pure-form" data-bind="submit: $root.map.zoomToArea">
+            <input class="search-text" type="text" data-bind="textInput: $root.search.input" placeholder="Find your neighborhood">
+            <button class="pure-button" type="submit">Go!</button>
+        </form>
+        <div class="skyline"></div>
+        <div class="landing-legend">
+            <ul class="categories" data-bind="foreach: $root.list.filters">
+                <li class="category">
+                    <span data-bind="style: { backgroundColor: color }" class="legend-icon"></span>
+                    <span data-bind="text: label"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="credits">
+            <p>Data provided by the U.S. National Park Service</p>
+        </div>
     </div>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/knockout-3.4.2.js"></script>
 

@@ -114,7 +114,7 @@ var InfoVm = function() {
                     position: nearStreetViewLocation,
                     pov: {
                     heading: heading,
-                    pitch: 30
+                    pitch: 15
                     }
                 };
                 var panorama = new google.maps.StreetViewPanorama(
@@ -153,9 +153,12 @@ var SearchVm = function() {
     this.input = new ko.observable();
 };
 
-var viewModel = {};
+var viewModel = {
+    showIntro: ko.observable(true)
+};
 
 var init = function() {
+    
     viewModel.map = new MapVm();
     viewModel.info = new InfoVm();
     viewModel.list = new ListVm();
