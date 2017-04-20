@@ -44,6 +44,9 @@ var MapVm = function() {
             viewModel.list.placeList().forEach(function(place) {
                 self.setUpMarker(place.marker);
             });
+            if (viewModel.list.visibleTypes().length === 0) {
+                viewModel.list.initiateTypes();
+            } 
             viewModel.showIntro(false);
 
         });

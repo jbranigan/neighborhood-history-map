@@ -23,14 +23,15 @@
             <div class="filters">
                 <ul class="categories" data-bind="foreach: $root.list.filters">
                     <li class="category">
-                        <input type="checkbox" data-bind="attr: { value: label }, checked: $root.list.visibleTypes" class="pure-checkbox"/>
+                        <input type="checkbox" data-bind="attr: { value: label }, 
+                            checked: $root.list.visibleTypes" class="pure-checkbox"/>
                         <span data-bind="style: { backgroundColor: color }" class="legend-icon"></span>
                         <span data-bind="text: label"></span>
                     </li>
                 </ul>
             </div>
             <div class="list">
-                <ul id="properties" data-bind="foreach: $root.list.placeList">
+                <ul id="properties" data-bind="foreach: $root.list.filteredPlaces">
                     <li class="property" data-bind="click: $root.list.placeInfo, 
                     event: { mouseover: $root.list.highlightMarker, mouseout: $root.list.clearHighlight }">
                     <span data-bind="style: { backgroundColor: type().color }" class="legend-icon-small"></span>

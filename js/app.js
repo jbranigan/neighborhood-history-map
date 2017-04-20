@@ -40,12 +40,25 @@ var ListVm = function() {
         return arr;
     });
 
-    this.visibleTypes = ko.computed(function() {
-        var arr = [];
+    this.visibleTypes = ko.observableArray([]);
+    
+    this.initiateTypes = function() {
         Object.keys(mapData.types).forEach(function(key) {
-            arr.push(mapData.types[key].label);
+            self.visibleTypes.push(mapData.types[key].label);
         });
-        return arr;
+    };
+    
+    this.filteredPlaces = ko.computed(function() {
+        var places = [];
+        self.placeList().forEach(function(place) {
+            if (self.visibleTypes().includes(place.type().label)) {
+                places.push(place);
+                place.marker.setVisible(true);
+            } else {
+                place.marker.setVisible(false);
+            }
+        });
+        return places;
     });
 
     self.placeInfo = function(place) {
@@ -127,6 +140,7 @@ var InfoVm = function() {
         // Use streetview service to get the closest streetview image within
         // 50 meters of the markers position
         var radius = 50;
+        var source = 'outdoor';
         this.streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
     };
 
