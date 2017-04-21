@@ -1,11 +1,27 @@
-/* TODO: include a reset */
+/* Border box set according to
+ * https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+
+html {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+    *,
+    *::before,
+    *::after {
+        -webkit-box-sizing: inherit;
+           -moz-box-sizing: inherit;
+                box-sizing: inherit;
+    }
 
 html, body { 
     height: 100vh; 
     margin: 0; 
     padding: 0; 
     color: #514a3b;
-    background-color: #e1d4b8;
+    background-color: #fcf8f1;
     font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -15,7 +31,6 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Times New Roman', Times, serif;
     font-weight: normal;
 }
 
@@ -26,20 +41,108 @@ a:visited {
 }
 
 header {
-    height: 12vh;
-    text-align: center;
+    height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: top;
+    background: url("../img/skyline.png") center 50px no-repeat;
+    background-size: 600px;
+    border-bottom: 8px solid #514a3b;
+}
+
+#title, #search-form {
+    flex: 1 1 50%;
+}
+
+#title {
+    padding-left: 10px;
+}
+
+#title h1 {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+#search-form {
+    padding-right: 10px;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.search-text {
+    width: 300px;
 }
 
 main {
-    height: 85vh;
+    height: calc(100vh - 110px);
+    display: flex;
+    position: relative;
 }
 
-#search-text {
-    width: 200px;
-    padding: 3px;
+.list-view {
+    flex: 0 0 250px;
+    background-color: #514a3b;
+    color: #fcf8f1;
+    overflow: auto;
+    max-height: calc(100vh - 100px);
 }
+
+.categories {
+    list-style-type: none;
+    padding: 0;
+}
+
+.category {
+    padding: 10px 0 0 10px;
+}
+
+.legend-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 5px 0 10px;
+}
+
+.legend-icon-small {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 8px;
+}
+
+#properties {
+    list-style-type: none;
+    padding: 0;
+}
+
+.property {
+    padding: 8px 5px 8px 5px;
+    font-size: 14px;
+    font-weight: lighter;
+    height: 100%;
+    position: relative;
+    border-top: 1px solid #9C9C9C;
+}
+
+.property-label {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+    max-width: 220px;
+}
+
+.property:hover {
+    background-color: #769ba2;
+}
+
 #map { 
     height: 100%; 
+    flex-grow: 1;
 }
 
 #pano {
@@ -49,31 +152,129 @@ main {
 
 #lightbox {
     position: absolute;
-    top: 20vh;
+    top: 15vh;
     left: 0;
     right: 0;
     width: 100%;
     margin: auto;
-    max-width: 400px;
-    min-height: 300px;
+    max-width: 640px;
+    min-height: 380px;
     z-index: 100;
     background-color: #f9f2e3;
     box-shadow: 5px 5px 10px #514a3b;
     text-align: center;
 }
 
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 .hidden {
     display: none;
 }
 
-#legend {
-    font-family: Arial, sans-serif;
-    background: #fff;
-    padding: 10px;
-    margin: 10px;
-    border: 3px solid #000;
+#intro {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: #f9f2e3; 
+    text-align: center;
 }
 
-#legend img {
-    vertical-align: middle;
+.intro-header {
+    padding: 100px 0 50px 0;
+}
+
+#landing-search {
+    padding: 50px;
+}
+
+.skyline {
+    height: 80px;
+    background: url("../img/skyline.png") center top no-repeat;
+}
+
+.landing-legend {
+    background-color: #514a3b;
+    height: 300px;
+}
+
+.landing-legend ul {
+    text-align: left;
+    width: 200px;
+    margin: 0 auto;
+    padding-top: 50px;
+    color: #f9f2e3;
+}
+
+.credits {
+    padding: 50px 0;
+}
+
+.list-toggle {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 100px;
+    z-index: 50;
+    text-align: center;
+    padding: 7px;
+    color: #f9f2e3;
+    background-color: #769ba2;
+    border-radius: 5px;
+}
+
+@media (max-width: 767px) {
+    main {
+        display: block;
+        height: calc(100vh - 160px);
+    }
+
+    header {
+        height: 150px;
+        background: url("../img/skyline.png") center 120px no-repeat;
+        background-size: 400px;
+        text-align: center;
+    }
+
+    #title h1 {
+        font-size: 20;
+        margin-bottom: 5px;
+        padding: 0;
+    }
+
+    #search-form {
+        padding: 0;
+        margin: 0;
+    }
+
+    .search-text {
+        width: 250px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .search-button {
+        display: none;
+    }
+    
+    #map {
+        width: 100%;
+    }
+
+    
+    .list-toggle {
+        display: block;
+    }
+
+    .list-view {
+        width: 100%;
+        z-index: 25;
+    }
 }
