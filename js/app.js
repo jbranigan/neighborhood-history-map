@@ -73,6 +73,25 @@ var ListVm = function() {
         viewModel.map.clearHighlight(place.marker);
     };
 
+    this.show = ko.observable();
+    
+    this.checkWidth = ko.computed(function(){
+        self.show(window.innerWidth > 767);
+    });
+
+    this.toggleMessage = ko.observable('List View');
+
+    this.toggleList = function() {
+        if (self.show()) {
+            self.toggleMessage('List View');
+            self.show(false);
+        } else {
+            self.toggleMessage('Map View');
+            self.show(true);
+        }
+    };
+    
+
 };
 
 var InfoVm = function() {

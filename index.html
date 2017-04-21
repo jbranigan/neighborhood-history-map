@@ -15,11 +15,12 @@
         </div>
         <form id="search-form" class="pure-form" data-bind="submit: $root.map.zoomToArea">
             <input class="search-text" type="text" data-bind="textInput: $root.search.input" placeholder="Find your neighborhood">
-            <button class="pure-button" type="submit">Go!</button>
+            <button class="pure-button search-button" type="submit">Go!</button>
         </form>
     </header>
     <main>
-        <div class="list-view">
+        <div class="list-toggle" data-bind="text: $root.list.toggleMessage, click: $root.list.toggleList"></div>
+        <div class="list-view" data-bind="visible: $root.list.show">
             <div class="filters">
                 <ul class="categories" data-bind="foreach: $root.list.filters">
                     <li class="category">

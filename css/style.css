@@ -43,6 +43,7 @@ a:visited {
 header {
     height: 100px;
     display: flex;
+    flex-wrap: wrap;
     align-items: top;
     background: url("../img/skyline.png") center 50px no-repeat;
     background-size: 600px;
@@ -73,14 +74,17 @@ header {
 }
 
 main {
-    height: calc(100vh - 120px);
+    height: calc(100vh - 110px);
     display: flex;
+    position: relative;
 }
 
 .list-view {
     flex: 0 0 250px;
     background-color: #514a3b;
     color: #fcf8f1;
+    overflow: auto;
+    max-height: calc(100vh - 100px);
 }
 
 .categories {
@@ -107,12 +111,6 @@ main {
     left: 0;
     bottom: 0;
     width: 8px;
-}
-
-.list {
-    height: 100%;
-    overflow: auto;
-    height: calc(100% - 145px);
 }
 
 #properties {
@@ -216,4 +214,68 @@ main {
 
 .credits {
     padding: 50px 0;
+}
+
+.list-toggle {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 100px;
+    z-index: 50;
+    text-align: center;
+    padding: 7px;
+    color: #f9f2e3;
+    background-color: #769ba2;
+    border-radius: 5px;
+}
+
+@media (max-width: 767px) {
+    main {
+        display: block;
+        height: calc(100vh - 160px);
+    }
+
+    header {
+        height: 150px;
+        background: url("../img/skyline.png") center 120px no-repeat;
+        background-size: 400px;
+        text-align: center;
+    }
+
+    #title h1 {
+        font-size: 20;
+        margin-bottom: 5px;
+        padding: 0;
+    }
+
+    #search-form {
+        padding: 0;
+        margin: 0;
+    }
+
+    .search-text {
+        width: 250px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .search-button {
+        display: none;
+    }
+    
+    #map {
+        width: 100%;
+    }
+
+    
+    .list-toggle {
+        display: block;
+    }
+
+    .list-view {
+        width: 100%;
+        z-index: 25;
+    }
+
 }
