@@ -16,6 +16,10 @@ html {
                 box-sizing: inherit;
     }
 
+
+/* Basic Layout and Typography
+*******
+*/
 html, body { 
     height: 100vh; 
     margin: 0; 
@@ -39,6 +43,10 @@ a:visited {
     text-decoration: none;
     color: #265e98;
 }
+
+/* Top section 
+*******
+*/
 
 header {
     height: 100px;
@@ -73,6 +81,10 @@ header {
     width: 300px;
 }
 
+/* Map and List areas 
+*******
+*/
+
 main {
     height: calc(100vh - 110px);
     display: flex;
@@ -96,6 +108,7 @@ main {
     padding: 10px 0 0 10px;
 }
 
+/* Draws a small colored circle */
 .legend-icon {
     display: inline-block;
     width: 12px;
@@ -127,6 +140,7 @@ main {
     border-top: 1px solid #9C9C9C;
 }
 
+ /* Make sure the label in the list doesn't wrap */
 .property-label {
     display: inline-block;
     white-space: nowrap;
@@ -139,6 +153,10 @@ main {
 .property:hover {
     background-color: #769ba2;
 }
+
+/* Map and Custom Info Window 
+*******
+*/
 
 #map { 
     height: 100%; 
@@ -174,6 +192,10 @@ main {
 .hidden {
     display: none;
 }
+
+/* Splash screen 
+*******
+*/
 
 #intro {
     position: absolute;
@@ -215,6 +237,10 @@ main {
 .credits {
     padding: 50px 0;
 }
+
+/* Mobile Layout 
+*******
+*/
 
 .list-toggle {
     display: none;

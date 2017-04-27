@@ -1,3 +1,5 @@
+// Basically a configuration object to define the different location types
+// and custom basemap styles
 var mapData = {
     types: { 
         default: { color: '#d18779', label: 'Commercial / Other' }, // rose

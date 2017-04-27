@@ -1,57 +1,80 @@
+// ViewModel for the map
+// Separated into its own file because there's a lot here
 var MapVm = function() {
     var self = this;
 
+    // Set up a few google.maps objects
     this.map = new google.maps.Map(document.getElementById('map'));
-
     this.infowindow = new google.maps.InfoWindow();
-
     this.streetViewService = new google.maps.StreetViewService();
 
+    // Initialize the map - happens in the background of the splash page
     this.initMap = function() {
         this.map.setOptions({
-            center: {lat: 39.95, lng: -75.166667}, // philly {lat: 39.95, lng: -75.166667} ****** st louis {lat: 38.637791, lng: -90.278778}
+            center: {lat: 39.95, lng: -75.166667}, 
             zoom: 16,
-            styles: mapData.mapStyles,
-            fullscreenControl: false,
-            gestureHandling: 'greedy',
-            mapTypeControl: false,
+            styles: mapData.mapStyles, // in data.js file
+            fullscreenControl: false, // it's pretty much full screen already
+            gestureHandling: 'greedy', // disables requirement for 'two fingers to pan'
+            mapTypeControl: false, // only show the styled map
             minZoom: 13
         });
 
-        // Make sure the marker property is cleared if the infowindow is closed.
+        // This is for when the info window is open
+        // If the user clicks outside the info window (i.e. on the map),
+        // close the info window
         this.map.addListener('click', function() {            
+            // Checks to see if the window is open already
             if (viewModel.info.placeName()) {
                 viewModel.info.close();
             }
         });
     };
 
+    // Loads data from the National Park Service
     this.loadData = function() {
         var self = this;
 
+        // The base URL and query string are static
         var baseUrl = 'https://mapservices.nps.gov/arcgis/rest/services/cultural_resources/nrhp_locations/MapServer/0/';
         var queryStr = 'query?outFields=RESNAME%2C+NRIS_Refnum&returnGeometry=true&f=json&geometry=';
+        // Limit the query by filtering only data that's within the map viewport
         var bounds = this.map.getBounds();
         var extent = bounds.getSouthWest().lng() + ',' + bounds.getSouthWest().lat() + ',' +
             bounds.getNorthEast().lng() + ',' + bounds.getNorthEast().lat();
+        // Assemble the request URL
         var request = baseUrl + queryStr + extent;
 
+        // Make an AJAX call to the NPS server
         $.getJSON(request, function(data) {
             console.log(data.features.length + ' features loaded');
+
+            // Empty the current place list
+            viewModel.list.placeList([]);
+            
+            // Push each feature into the list
             data.features.forEach(function(place) {
                 viewModel.list.placeList.push( new Place(place) );
             });
+
+            // Once the list is full, run through it and place the markers on the map
             viewModel.list.placeList().forEach(function(place) {
                 self.setUpMarker(place.marker);
             });
+
+            // Also check to see if no type filters are on, turn them all on
+            // Otherwise leave them
             if (viewModel.list.visibleTypes().length === 0) {
                 viewModel.list.initiateTypes();
             } 
+
+            // Make sure we switch to the map view
             viewModel.showIntro(false);
 
         });
     };
 
+    // Return icon style definition using its type color
     this.makeIcon = function(color) {
         return {
                 path: google.maps.SymbolPath.CIRCLE,
@@ -62,12 +85,15 @@ var MapVm = function() {
         };
     };
     
+    // Add a marker to the map
     this.setUpMarker = function(marker) {
         
+        // Loads the marker info into the info window
         marker.addListener('click', function() {
             viewModel.info.populate(this);
         });
 
+        // Controls highlight functionality
         marker.addListener('mouseover', function() {
             self.highlightMarker(this);
         });
@@ -76,10 +102,11 @@ var MapVm = function() {
             self.clearHighlight(this);
         });
 
-        //this.markers.push(marker);
+        // Aaaand add it to the map
         marker.setMap(this.map);
     };
 
+    // Changes the color of the marker, and pops up the small infowindow
     this.highlightMarker = function(marker) {
         marker.setIcon( {
                 path: google.maps.SymbolPath.CIRCLE,
@@ -92,14 +119,13 @@ var MapVm = function() {
         self.infowindow.open(map, marker);
     };
 
+    // Resets the marker to its original style, closes the small infowindow
     this.clearHighlight = function(marker) {
         marker.setIcon( this.makeIcon(marker.type.color) );
         self.infowindow.close();
     };
 
-    // This function takes the input value in the find nearby area text input
-    // locates it, and then zooms into that area. This is so that the user can
-    // show all listings, then decide to focus on one area of the map.
+    // Geocode the user input, then zoom to the results
     this.zoomToArea = function() {
         // Initialize the geocoder.
         var geocoder = new google.maps.Geocoder();
@@ -119,8 +145,10 @@ var MapVm = function() {
                         viewModel.list.placeList([]);
                         self.map.setCenter(results[0].geometry.location);
                         self.map.setZoom(15);
+                        // And load the data for the new place
                         self.loadData();
                     } else {
+                    // Basic error handling
                     window.alert('We could not find that location - try entering a more' +
                         ' specific place.');
                     }
