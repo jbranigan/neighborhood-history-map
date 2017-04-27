@@ -57,7 +57,7 @@
         </p>
         <p>Find out if there are any near you...</p>
         <form id="landing-search" class="pure-form" data-bind="submit: $root.map.zoomToArea">
-            <input class="search-text" type="text" data-bind="textInput: $root.search.input" placeholder="Find your neighborhood">
+            <input class="search-text" type="text" data-bind="textInput: $root.search.input" placeholder="Search by address, city, or zip">
             <button class="pure-button" type="submit">Go!</button>
         </form>
         <div class="skyline"></div>
@@ -81,7 +81,7 @@
     <script src="js/map.js"></script>
     <script src="js/app.js"></script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBbKzsLgpB2VvfTDX0XIEn6lVsd8QaBmQI&v=3&callback=init">
+        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyBbKzsLgpB2VvfTDX0XIEn6lVsd8QaBmQI&v=3&callback=init">
     </script>
 </body>
 </html>
