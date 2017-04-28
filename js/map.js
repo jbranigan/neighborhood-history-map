@@ -71,6 +71,10 @@ var MapVm = function() {
             // Make sure we switch to the map view
             viewModel.showIntro(false);
 
+        })
+        .fail( function() {
+            // Let the user know the NPS data request failed
+            alert("There was a problem accessing location data. Please check your internet connection and try again.");
         });
     };
 

@@ -238,3 +238,8 @@ var init = function() {
     // And finally initialize the map
     viewModel.map.initMap();
 };
+
+var initError = function() {
+    // Handle the possibility that the Google JS file request might fail
+    alert("There was a problem loading the Google API. Please check your internet connection and try again later.");
+};
