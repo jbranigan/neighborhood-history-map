@@ -77,6 +77,7 @@ var ListVm = function() {
     // Click binding to each list item
     self.placeInfo = function(place) {
         viewModel.info.populate(place.marker);
+        viewModel.map.bounce(place.marker);
     };
 
     // Mouseover binding to each list item

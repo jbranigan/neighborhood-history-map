@@ -101,6 +101,7 @@ var MapVm = function() {
         // Loads the marker info into the info window
         marker.addListener('click', function() {
             viewModel.info.populate(this);
+            self.bounce(this);
         });
 
         // Controls highlight functionality
@@ -133,6 +134,11 @@ var MapVm = function() {
     this.clearHighlight = function(marker) {
         marker.setIcon( this.makeIcon(marker.type.color) );
         self.infowindow.close();
+    };
+
+    this.bounce = function(marker) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function(){ marker.setAnimation(null); }, 1400);
     };
 
     // Geocode the user input, then zoom to the results
