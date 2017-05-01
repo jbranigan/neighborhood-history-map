@@ -198,7 +198,7 @@ var InfoVm = function() {
         // Check for Wikipedia entries
         // get the Wikipedia data
         $.ajax({
-            url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + title,
+            url: "https://en.awikipedia.org/w/api.php?action=opensearch&format=json&search=" + title,
             method: "GET",
             dataType: "jsonp"
         }).done(function (data) {
@@ -209,6 +209,11 @@ var InfoVm = function() {
             }
             // otherwise silently fail, as this is an enhancement to the pano, and its 
             // absence does not degrade the experience
+        })
+        .fail( function() {
+            // Let the user know the NPS data request failed
+            var msg = "There was a problem accessing Wikipedia data. Please check your internet connection and try again.";
+            self.wiki(msg);
         });
     };
 };
