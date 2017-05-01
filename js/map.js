@@ -11,7 +11,7 @@ var MapVm = function() {
     // Initialize the map - happens in the background of the splash page
     this.initMap = function() {
         this.map.setOptions({
-            center: {lat: 39.95, lng: -75.166667}, 
+            center: {lat: 38.627222, lng: -90.1977787}, // St Louis, MO 
             zoom: 16,
             styles: mapData.mapStyles, // in data.js file
             fullscreenControl: false, // it's pretty much full screen already
@@ -29,6 +29,12 @@ var MapVm = function() {
                 viewModel.info.close();
             }
         });
+        
+        // Waits to make sure the map is initiated, so that the bounds can be known
+        google.maps.event.addListenerOnce(this.map, 'tilesloaded', function() {
+            self.loadData();
+        });
+            
     };
 
     // Loads data from the National Park Service

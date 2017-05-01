@@ -198,7 +198,7 @@ var InfoVm = function() {
         // Check for Wikipedia entries
         // get the Wikipedia data
         $.ajax({
-            url: "https://en.awikipedia.org/w/api.php?action=opensearch&format=json&search=" + title,
+            url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + title,
             method: "GET",
             dataType: "jsonp"
         }).done(function (data) {
@@ -225,7 +225,7 @@ var SearchVm = function() {
 
 // Basic definition of the overarching ViewModel
 var viewModel = {
-    showIntro: ko.observable(true)
+    showIntro: ko.observable(false)
 };
 
 // Callback function for the Google Maps API async request
